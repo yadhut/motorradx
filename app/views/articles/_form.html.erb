@@ -1,0 +1,19 @@
+<%= render 'shared/errors'%>
+<div class="row justify-content-center">
+<%= form_with(model: @article,class:"card shadow p-3 mb-5 bg-info rounded", local: true ) do |f| %>
+<div class="form-group">
+<%= f.label :title%> <br>
+<%= f.text_field :title, class: "form-control" %>
+</div>
+
+<p>
+<%= f.label :description %> <br>
+<%= f.text_area :description,rows:7 ,class: "form-control"%>
+</p>
+
+<p>
+<%= f.submit class:"btn btn-primary" %>
+</p>
+</div>
+
+<% end %>
