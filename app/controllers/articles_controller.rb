@@ -25,6 +25,7 @@ class ArticlesController < ApplicationController
     
     # puts render plain: params[:article]
     @article = Article.new(article_params)
+    @article.user = User.first
     @article.save
     Rails.logger.info @article.errors.full_messages
     if @article.errors.empty?
