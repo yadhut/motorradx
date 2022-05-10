@@ -6,6 +6,9 @@
             <%= image_tag ("book.jpeg") %>
             <div class="card-body">
                 <div class="container">
+                <small>
+                Article by <%= @article.user.username%>
+                </small>
                 <h5 class="card-title"><%= @article.title %> </h5>
                 <p><%= @article.description %></p>
                 <div>
