@@ -2,25 +2,7 @@
 
 <h1 style="font-family:Trebuchet MS" class="text-center">Article list </h1>
 
-<div class="container ">
-    <div class="row">
-        <% @articles.each do |article| %>
-            <div class="col-3 mt-4" >
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <%= image_tag "book.jpeg", class: "car-img-top", alt: "Book" %>
-                    <div class="card-body">
-                        <h5 class="card-title"> <%=article.title %> </h5>
-                        <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> %>
-                        <%= link_to 'Read more', article_path(article.id), class:"btn btn-primary d-md-block" %>
-                    </div>
-                    <div class="crad-footer text-muted">
-                        <small> Added at <%= time_ago_in_words(article.created_at)%></small>
-                    </div>
-                </div>
-            </div>
-        <%end%>
-    </div>
-</div>
+<%= render 'articles'%>
 <br>
 <p>
     <%= link_to 'New Article', new_article_path, class:"btn btn-success"%>
