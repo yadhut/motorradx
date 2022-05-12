@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
     before_action :set_article, only: [:show, :edit, :update, :destroy]
+    before_action :require_user, except: [:index, :show]
+    before_action :require_same_user, only: [:edit, :update, :destroy]
   def show  
     # @article = Article.find(params[:id]) 
     # we decleared before_action to perform the set_article method before running each function that we decleared with that
@@ -7,7 +9,7 @@ class ArticlesController < ApplicationController
 
   def index
 
-    @articles = Article.all
+    @articles = Article.paginate(page: params[:page], per_page: 8)
   end
 
   def new
@@ -25,7 +27,7 @@ class ArticlesController < ApplicationController
     
     # puts render plain: params[:article]
     @article = Article.new(article_params)
-    @article.user = User.first
+    @article.user = current_user
     @article.save
     Rails.logger.info @article.errors.full_messages
     if @article.errors.empty?
@@ -64,5 +66,13 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit(:title, :description)
   end
+
+  def require_same_user
+
+    if current_user != @article.user
+        flash[:notice] ="You only allowded to update your articles!"
+        redirect_to @article
+    end
+end
   
 end

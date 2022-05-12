@@ -4,6 +4,6 @@
 
 <%= render 'articles'%>
 <br>
-<p>
-    <%= link_to 'New Article', new_article_path, class:"btn btn-success"%>
-</p>
+    <div class="apple_pagination .current">
+        <%= will_paginate @articles, :container => false %>
+    </div>

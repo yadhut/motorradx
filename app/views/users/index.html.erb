@@ -1,0 +1,27 @@
+<h1 class="text-center mt-4">MotorradX's Bloggers</h1>
+ <div class="container center  ">
+    <div class="row">
+        <% @users.each do |user| %>
+            <div class="col-3 mt-4" >
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <%= link_to gravatar_for(user), users_path(user)%>  
+                    <div class="card-body">
+                        <h5 class="card-title text-center mt-4"> <%=user.username %> </h5>
+                        <p class="card-text"><%=pluralize(user.articles.count,"article") %></p>
+                        <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> %>
+                        <%= link_to "View Profile", user,class:"btn btn-primary d-md-block" %>
+                         <br>
+                        <% if( logged_in? && current_user.username ==user.username) %>
+                            <%= link_to 'Edit Profile', edit_user_path(user), class:"btn btn-primary d-md-block" %>
+                        <%end%>
+                    </div>
+                    <div class="crad-footer text-muted">
+                    </div>
+                </div>
+            </div>
+        <%end%>
+    </div>
+</div>
+    <div class="apple_pagination .current">
+        <%= will_paginate @users, :container => false %>
+    </div>
