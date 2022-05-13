@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
     def require_user
         if !logged_in?
-            flash[:notice] ="Your not Authorized to perform this action!"
+            flash[:error] ="Your not Authorized to perform this action!"
             redirect_to login_path
         end
 

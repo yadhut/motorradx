@@ -28,6 +28,7 @@
       <% if(logged_in?)%>
 
         <li class="nav-item">
+        <%= "ADMIN"  if current_user.admin?%>
         <%= link_to current_user.username, user_path(current_user), class:"nav-link " %>
         </li>
 
@@ -69,9 +70,8 @@
     </div>
     <div class= "container">
       <% flash.each do |name,msg|%>
-
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong><%=msg%></strong> 
+          <div class="alert alert-<%= name == "notice" ? "success" : "danger" %> alert-dismissible fade show" role="error"><strong><%=msg%></strong> </div>
+              
               <button type="button" class="fade" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

@@ -11,8 +11,14 @@
                         <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> %>
                         <%= link_to "View Profile", user,class:"btn btn-primary d-md-block" %>
                          <br>
-                        <% if( logged_in? && current_user.username ==user.username) %>
-                            <%= link_to 'Edit Profile', edit_user_path(user), class:"btn btn-primary d-md-block" %>
+                        <% if logged_in? %> 
+                            <% if current_user.username ==user.username %>
+                                <%= link_to 'Edit Profile', edit_user_path(user), class:"btn btn-primary d-md-block" %>
+                            <%end%>
+                            <%if current_user.admin?%>
+                            <br>
+                                <%= link_to "Delete profile", user_path(user),method: :delete, data: {confirm:"Are you sure that you want to delete?"} ,class: "btn btn-danger" %>
+                            <%end%>
                         <%end%>
                     </div>
                     <div class="crad-footer text-muted">

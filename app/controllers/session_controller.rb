@@ -14,7 +14,7 @@ class SessionController < ApplicationController
             session[:user_id] = user.id
             redirect_to user
         else
-            flash.now[:notice] = "Thre was a problem with your given input"
+            flash.now[:error] = "Thre was a problem with your given input"
             render 'new'
         end
     end

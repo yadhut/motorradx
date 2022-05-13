@@ -60,6 +60,9 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  rescue => e 
+    flash[:error] = 'Article doesnt exist!'
+    redirect_to articles_path
   end
 
   # we are using this inside the two function above such as update and create. there we jus passing the function name insted of repeating the same code
@@ -69,8 +72,8 @@ class ArticlesController < ApplicationController
 
   def require_same_user
 
-    if current_user != @article.user
-        flash[:notice] ="You only allowded to update your articles!"
+    if current_user != @article.user && !current_user.admin?
+        flash[:error] ="You only allowded to update your articles!"
         redirect_to @article
     end
 end

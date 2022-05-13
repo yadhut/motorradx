@@ -14,6 +14,10 @@ class UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
         @articles = @user.articles
+
+    rescue => e
+        flash[:error] = "User unavailable!"
+        redirect_to users_path
     end
 
 
@@ -54,8 +58,8 @@ class UsersController < ApplicationController
         
         @user = User.find(params[:id])
         @user.destroy
-        session[:user_id] = nil
-        flash[:notice] ="Profile and all associated articles have been deleted successfully!"
+        session[:user_id] = nil if @user == current_user
+        flash[:error] ="Profile and all associated articles have been deleted successfully!"
         redirect_to articles_path
 
     end
@@ -68,8 +72,8 @@ class UsersController < ApplicationController
 
     def require_same_user
         @user = User.find(params[:id])
-        if (current_user != @user)
-            flash[:notice] ="You only allowded to update your profile!"
+        if (current_user != @user && !current_user.admin?)
+            flash[:error] ="You only allowded to update your profile!"
             redirect_to users_path
         end
     end
